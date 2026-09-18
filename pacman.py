@@ -8,10 +8,10 @@ writer = Turtle(visible=False)
 aim = vector(5, 0)
 pacman = vector(-40, -80)
 ghosts = [
-    [vector(-160, 160), vector(5, 0)],
-    [vector(-160, -160), vector(0, 5)],
-    [vector(100, 160), vector(0, -5)],
-    [vector(100, -160), vector(-5, 0)],
+    [vector(-160, 160), vector(5*2, 0)],
+    [vector(-160, -160), vector(0, 5*2)],
+    [vector(100, 160), vector(0, -5*2)],
+    [vector(100, -160), vector(-5*2, 0)],
 ]
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -91,10 +91,10 @@ def world():
 def smart_choice(point):
     """Evalua las 4 direcciones posibles y elige la valida que mas acerca al fantasma a pacman"""
     options = [
-        vector(5, 0),
-        vector(-5, 0),
-        vector(0, 5),
-        vector(0, -5),
+        vector(5*2, 0),
+        vector(-5*2, 0),
+        vector(0, 5*2),
+        vector(0, -5*2),
     ]
     valid_options = [option for option in options if valid(point + option)]
 
