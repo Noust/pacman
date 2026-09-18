@@ -88,20 +88,23 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
-def smart_choice(point):
-    """Evalua las 4 direcciones posibles y elige la valida que mas acerca al fantasma a pacman"""
+def smart_choice(point, course):
+    """Evalua las direcciones validas y elige la que mas acerca al fantasma a pacman"""
     options = [
         vector(5*2, 0),
         vector(-5*2, 0),
         vector(0, 5*2),
         vector(0, -5*2),
     ]
+    reverse = vector(-course.x, -course.y)
     valid_options = [option for option in options if valid(point + option)]
+    forward_options = [option for option in valid_options if option != reverse]
+    candidates = forward_options or valid_options
 
-    if not valid_options:
+    if not candidates:
         return choice(options)
 
-    return min(valid_options, key=lambda option: abs(pacman - (point + option)))
+    return min(candidates, key=lambda option: abs(pacman - (point + option)))
 
 def move():
     "Move pacman and all ghosts."
@@ -130,7 +133,7 @@ def move():
         if valid(point + course):
             point.move(course)
         else:
-            plan = smart_choice(point)
+            plan = smart_choice(point, course)
             course.x = plan.x
             course.y = plan.y
 
